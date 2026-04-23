@@ -1,4 +1,4 @@
-# 📐 00 — Convención de Datos Vacíos
+#  05 — Convención de Datos Vacíos
 ## Inventario TI | CUR Carazo — UNAN Managua
 
 > **Proyecto:** DashboardV1_MGA  
