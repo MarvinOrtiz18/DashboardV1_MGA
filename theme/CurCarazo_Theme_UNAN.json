@@ -1,0 +1,326 @@
+{
+  "name": "CurCarazo UNAN-Managua",
+  "dataColors": [
+    "#153455",
+    "#2C5697",
+    "#F5BD46",
+    "#DC0A32",
+    "#9D9D9C",
+    "#1A4A7A",
+    "#F0A500",
+    "#B00828"
+  ],
+  "background": "#F5F5F5",
+  "foreground": "#153455",
+  "tableAccent": "#2C5697",
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [{ "color": { "solid": { "color": "#FFFFFF" } } }],
+        "border": [{ "show": true, "color": { "solid": { "color": "#E0E0E0" } }, "radius": 8 }],
+        "fontFamily": [{ "fontFamily": "Trebuchet MS" }],
+        "fontSize": [{ "fontSize": 11 }],
+        "color": [{ "solid": { "color": "#153455" } }]
+      }
+    },
+    "card": {
+      "*": {
+        "background": [{ "color": { "solid": { "color": "#FFFFFF" } } }],
+        "border": [{ "show": true, "color": { "solid": { "color": "#2C5697" } }, "radius": 8 }],
+        "calloutValue": [{
+          "fontSize": 28,
+          "fontFamily": "Trebuchet MS",
+          "color": { "solid": { "color": "#153455" } }
+        }],
+        "label": [{
+          "fontSize": 10,
+          "fontFamily": "Trebuchet MS",
+          "color": { "solid": { "color": "#9D9D9C" } },
+          "show": true
+        }]
+      }
+    },
+    "multiRowCard": {
+      "*": {
+        "background": [{ "color": { "solid": { "color": "#FFFFFF" } } }],
+        "border": [{ "show": true, "color": { "solid": { "color": "#2C5697" } }, "radius": 8 }],
+        "dataLabels": [{
+          "fontSize": 14,
+          "fontFamily": "Trebuchet MS",
+          "color": { "solid": { "color": "#153455" } }
+        }],
+        "categoryLabels": [{
+          "fontSize": 10,
+          "color": { "solid": { "color": "#9D9D9C" } }
+        }]
+      }
+    },
+    "columnChart": {
+      "*": {
+        "background": [{ "color": { "solid": { "color": "#FFFFFF" } } }],
+        "border": [{ "show": true, "color": { "solid": { "color": "#E0E0E0" } }, "radius": 8 }],
+        "categoryAxis": [{
+          "labelColor": { "solid": { "color": "#9D9D9C" } },
+          "gridlineColor": { "solid": { "color": "#E0E0E0" } },
+          "fontSize": 10
+        }],
+        "valueAxis": [{
+          "labelColor": { "solid": { "color": "#9D9D9C" } },
+          "gridlineColor": { "solid": { "color": "#E0E0E0" } },
+          "fontSize": 10
+        }],
+        "legend": [{
+          "labelColor": { "solid": { "color": "#153455" } },
+          "fontSize": 10
+        }],
+        "dataLabels": [{
+          "color": { "solid": { "color": "#153455" } },
+          "fontSize": 10
+        }]
+      }
+    },
+    "barChart": {
+      "*": {
+        "background": [{ "color": { "solid": { "color": "#FFFFFF" } } }],
+        "border": [{ "show": true, "color": { "solid": { "color": "#E0E0E0" } }, "radius": 8 }],
+        "categoryAxis": [{
+          "labelColor": { "solid": { "color": "#9D9D9C" } },
+          "gridlineColor": { "solid": { "color": "#E0E0E0" } },
+          "fontSize": 10
+        }],
+        "valueAxis": [{
+          "labelColor": { "solid": { "color": "#9D9D9C" } },
+          "gridlineColor": { "solid": { "color": "#E0E0E0" } },
+          "fontSize": 10
+        }],
+        "legend": [{
+          "labelColor": { "solid": { "color": "#153455" } },
+          "fontSize": 10
+        }],
+        "dataLabels": [{
+          "color": { "solid": { "color": "#153455" } },
+          "fontSize": 10
+        }]
+      }
+    },
+    "donutChart": {
+      "*": {
+        "background": [{ "color": { "solid": { "color": "#FFFFFF" } } }],
+        "border": [{ "show": true, "color": { "solid": { "color": "#E0E0E0" } }, "radius": 8 }],
+        "legend": [{
+          "labelColor": { "solid": { "color": "#153455" } },
+          "fontSize": 10
+        }],
+        "dataLabels": [{
+          "color": { "solid": { "color": "#153455" } },
+          "fontSize": 10,
+          "fontFamily": "Trebuchet MS",
+          "labelDisplay": true,
+          "labelPosition": "outside"
+        }]
+      }
+    },
+    "pieChart": {
+      "*": {
+        "background": [{ "color": { "solid": { "color": "#FFFFFF" } } }],
+        "border": [{ "show": true, "color": { "solid": { "color": "#E0E0E0" } }, "radius": 8 }],
+        "legend": [{
+          "labelColor": { "solid": { "color": "#153455" } },
+          "fontSize": 10
+        }],
+        "dataLabels": [{
+          "color": { "solid": { "color": "#153455" } },
+          "fontSize": 10,
+          "fontFamily": "Trebuchet MS",
+          "labelDisplay": true,
+          "labelPosition": "outside"
+        }]
+      }
+    },
+    "treemap": {
+      "*": {
+        "background": [{ "color": { "solid": { "color": "#FFFFFF" } } }],
+        "border": [{ "show": true, "color": { "solid": { "color": "#E0E0E0" } }, "radius": 8 }],
+        "legend": [{
+          "labelColor": { "solid": { "color": "#153455" } },
+          "fontSize": 10
+        }],
+        "dataLabels": [{
+          "color": { "solid": { "color": "#FFFFFF" } },
+          "fontSize": 11
+        }]
+      }
+    },
+    "tableEx": {
+      "*": {
+        "background": [{ "color": { "solid": { "color": "#FFFFFF" } } }],
+        "border": [{ "show": true, "color": { "solid": { "color": "#E0E0E0" } }, "radius": 8 }],
+        "columnHeaders": [{
+          "backColor": { "solid": { "color": "#153455" } },
+          "fontColor": { "solid": { "color": "#FFFFFF" } },
+          "fontSize": 11,
+          "fontFamily": "Trebuchet MS",
+          "bold": true
+        }],
+        "values": [{
+          "backColor": { "solid": { "color": "#FFFFFF" } },
+          "fontColor": { "solid": { "color": "#153455" } },
+          "fontSize": 10,
+          "fontFamily": "Trebuchet MS",
+          "urlIcon": true
+        }],
+        "total": [{
+          "backColor": { "solid": { "color": "#2C5697" } },
+          "fontColor": { "solid": { "color": "#FFFFFF" } },
+          "fontSize": 11,
+          "bold": true
+        }],
+        "grid": [{
+          "gridVertical": false,
+          "gridHorizontalWeight": 1,
+          "rowPadding": 6,
+          "outlineColor": { "solid": { "color": "#E0E0E0" } },
+          "gridColor": { "solid": { "color": "#F0F0F0" } }
+        }]
+      }
+    },
+    "matrix": {
+      "*": {
+        "background": [{ "color": { "solid": { "color": "#FFFFFF" } } }],
+        "border": [{ "show": true, "color": { "solid": { "color": "#E0E0E0" } }, "radius": 8 }],
+        "columnHeaders": [{
+          "backColor": { "solid": { "color": "#153455" } },
+          "fontColor": { "solid": { "color": "#FFFFFF" } },
+          "fontSize": 11,
+          "bold": true
+        }],
+        "rowHeaders": [{
+          "backColor": { "solid": { "color": "#2C5697" } },
+          "fontColor": { "solid": { "color": "#FFFFFF" } },
+          "fontSize": 11
+        }],
+        "values": [{
+          "backColor": { "solid": { "color": "#FFFFFF" } },
+          "fontColor": { "solid": { "color": "#153455" } },
+          "fontSize": 10
+        }],
+        "grid": [{
+          "gridHorizontalWeight": 1,
+          "gridColor": { "solid": { "color": "#F0F0F0" } },
+          "rowPadding": 6
+        }]
+      }
+    },
+    "slicer": {
+      "*": {
+        "background": [{ "color": { "solid": { "color": "#FFFFFF" } } }],
+        "border": [{ "show": true, "color": { "solid": { "color": "#2C5697" } }, "radius": 8 }],
+        "data": [{
+          "fontColor": { "solid": { "color": "#153455" } },
+          "fontSize": 10,
+          "fontFamily": "Trebuchet MS",
+          "background": { "solid": { "color": "#FFFFFF" } }
+        }],
+        "header": [{
+          "fontColor": { "solid": { "color": "#FFFFFF" } },
+          "background": { "solid": { "color": "#153455" } },
+          "fontSize": 11,
+          "bold": true,
+          "show": true
+        }],
+        "selection": [{
+          "selectAllCheckboxEnabled": true,
+          "singleSelect": false,
+          "color": { "solid": { "color": "#2C5697" } }
+        }],
+        "items": [{
+          "fontColor": { "solid": { "color": "#153455" } },
+          "background": { "solid": { "color": "#FFFFFF" } },
+          "hoverBackground": { "solid": { "color": "#EAF0FB" } },
+          "selectionBackground": { "solid": { "color": "#2C5697" } }
+        }]
+      }
+    },
+    "lineChart": {
+      "*": {
+        "background": [{ "color": { "solid": { "color": "#FFFFFF" } } }],
+        "border": [{ "show": true, "color": { "solid": { "color": "#E0E0E0" } }, "radius": 8 }],
+        "categoryAxis": [{
+          "labelColor": { "solid": { "color": "#9D9D9C" } },
+          "gridlineColor": { "solid": { "color": "#E0E0E0" } },
+          "fontSize": 10
+        }],
+        "valueAxis": [{
+          "labelColor": { "solid": { "color": "#9D9D9C" } },
+          "gridlineColor": { "solid": { "color": "#E0E0E0" } },
+          "fontSize": 10
+        }],
+        "legend": [{
+          "labelColor": { "solid": { "color": "#153455" } },
+          "fontSize": 10
+        }]
+      }
+    },
+    "scatterChart": {
+      "*": {
+        "background": [{ "color": { "solid": { "color": "#FFFFFF" } } }],
+        "border": [{ "show": true, "color": { "solid": { "color": "#E0E0E0" } }, "radius": 8 }],
+        "categoryAxis": [{
+          "labelColor": { "solid": { "color": "#9D9D9C" } },
+          "gridlineColor": { "solid": { "color": "#E0E0E0" } }
+        }],
+        "valueAxis": [{
+          "labelColor": { "solid": { "color": "#9D9D9C" } },
+          "gridlineColor": { "solid": { "color": "#E0E0E0" } }
+        }],
+        "legend": [{
+          "labelColor": { "solid": { "color": "#153455" } }
+        }]
+      }
+    },
+    "page": {
+      "*": {
+        "background": [{ "color": { "solid": { "color": "#F5F5F5" } }, "transparency": 0 }],
+        "outspace": [{ "color": { "solid": { "color": "#EBEBEB" } } }]
+      }
+    },
+    "title": {
+      "*": {
+        "color": [{ "solid": { "color": "#153455" } }],
+        "background": [{ "color": { "solid": { "color": "#FFFFFF" } } }],
+        "fontSize": [{ "fontSize": 14 }],
+        "fontFamily": [{ "fontFamily": "Trebuchet MS" }],
+        "bold": [{ "bold": true }]
+      }
+    }
+  },
+  "textClasses": {
+    "callout": {
+      "fontSize": 45,
+      "fontFace": "Trebuchet MS",
+      "color": "#153455"
+    },
+    "title": {
+      "fontSize": 14,
+      "fontFace": "Trebuchet MS",
+      "color": "#153455"
+    },
+    "header": {
+      "fontSize": 12,
+      "fontFace": "Trebuchet MS",
+      "color": "#2C5697"
+    },
+    "label": {
+      "fontSize": 10,
+      "fontFace": "Trebuchet MS",
+      "color": "#9D9D9C"
+    }
+  },
+  "good": "#2C5697",
+  "neutral": "#F5BD46",
+  "bad": "#DC0A32",
+  "maximum": "#2C5697",
+  "center": "#F5BD46",
+  "minimum": "#DC0A32",
+  "null": "#9D9D9C"
+}
