@@ -1,0 +1,15 @@
+relationship 0c198c82-b351-4440-8599-601643561d61
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Inventario_CurCarazo.Modified
+	toColumn: LocalDateTable_ea8e090f-58ae-46f6-9d9b-2ee1c0f96ecf.Date
+
+relationship 87d15039-bc1d-49a6-829a-8dd7c0ee34c2
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Inventario_CurCarazo.Created
+	toColumn: LocalDateTable_6fca389a-3305-4273-a293-2f088ba658d1.Date
+
+relationship 9b645956-eaad-62f0-9a36-270f1e633f09
+	crossFilteringBehavior: bothDirections
+	fromColumn: Inventario_CurCarazo.Ubicación_Maps
+	toColumn: Edificios.Ubicación_Maps
+

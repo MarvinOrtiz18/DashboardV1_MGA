@@ -1,0 +1,54 @@
+table Edificios
+	lineageTag: c72a1737-ae47-4d3f-b1ad-89b4236ae4b1
+
+	column Ubicación_Maps
+		dataType: string
+		lineageTag: 14d07a34-787c-43f0-95ea-fea147bda104
+		summarizeBy: none
+		sourceColumn: Ubicación_Maps
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Centro Universitario'
+		dataType: string
+		lineageTag: 31d294a2-0134-422c-b8e3-b2c9636d077d
+		summarizeBy: none
+		sourceColumn: Centro Universitario
+
+		annotation SummarizationSetBy = Automatic
+
+	column Latitud
+		dataType: double
+		lineageTag: 5536e638-ec8a-46d4-b685-410ddea3f03b
+		summarizeBy: none
+		sourceColumn: Latitud
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Longitud
+		dataType: double
+		lineageTag: 826ee81e-288d-44ec-a256-234ba067c0dd
+		summarizeBy: none
+		sourceColumn: Longitud
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Edificios = m
+		mode: import
+		source =
+				let
+				    Origen = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("ZZLNbptAFIVf5YpVKxk0f8DMkuC4SVSnEo5VqZYXU5i4I+EZC0yl+m26zKKrPoJfrNcmAlesYNDlnu+cM5tNcGe/19YfTanhsy0jKPSrNjWstCt/mBMUsH7OnmGRFffLMNeNPvlgFgwvlEYyZpTwOBWKEIWfQplEjFDOYioVE1QE29kmuG5ZZs/Zp3U2g3xdhHlWZN++RHBf2VdbWg+VgVrD3DamLO35r5uh9GOeLeEXINDcHKLLSG6NK62GF1M6X/vd+Y/GgZWuuyqakglKZCokZyMZEWnCKOX8PzLt9K7T72TXHTdk8yaCp047ePLt+Q1W5999OIvaN6aFD8Ng9nGKIBFBqpRyOYZDBEkUSWOZjgjhRRv6n/GxP3QtZN2ua494jC6FVNZNwudSiCQhlDLG3vdTSdGguu5Xw/5wsHjb5Y3JZYvtd7AwjUMpc4pufOVTX5xzhZUzxeIx2oRLxYXiUl51X3zTGGwS1s7+NE1rj7oZil7osquPuoLC7Kx3uoYlnm1l29IeautwVF8L70EnAFSlAg2msUjHYCneRSJYTPpgH3x7QNF61MAYj1bvJjkKxlJB0Y+ME0VHR3iF8aIQKtM+yqzUldn3ZI+V9XvdwsP5rfEG7hDYwVdb16134VjmRErwOMGQGE/EUBka4TFWxmnMgu32Hw==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Ubicación_Maps = _t, #"Centro Universitario" = _t, Latitud = _t, Longitud = _t]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Origen,{{"Ubicación_Maps", type text}, {"Centro Universitario", type text}, {"Latitud", type number}, {"Longitud", type number}}),
+				    #"Valor reemplazado" = Table.ReplaceValue(#"Tipo cambiado","UNAN-Managua, FAREM-Carazo. Edificio Msc. u Fernandez. (Edificio C)","UNAN-Managua, FAREM-Carazo. Edificio Msc. Fernando Fernandez. (Edificio C)",Replacer.ReplaceText,{"Ubicación_Maps"}),
+				    #"Valor reemplazado1" = Table.ReplaceValue(#"Valor reemplazado","Biblioteca Lic. Rafael Sanchez R UNAN FAREM-Carazo","Biblioteca Lic. Rafael Sanchez R UNAN FAREM-Carazo.",Replacer.ReplaceText,{"Ubicación_Maps"})
+				in
+				    #"Valor reemplazado1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

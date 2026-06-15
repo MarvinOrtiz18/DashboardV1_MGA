@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "7480a0e0d4d4b4d38eae",
+  "position": {
+    "x": 0,
+    "y": 0,
+    "z": 0,
+    "height": 200,
+    "width": 400,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Inventario_CurCarazo"
+                    }
+                  },
+                  "Property": "Label Pct EQUIPOS"
+                }
+              },
+              "queryRef": "Inventario_CurCarazo.Label Pct EQUIPOS",
+              "nativeQueryRef": "Label Pct EQUIPOS"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "value": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "25D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

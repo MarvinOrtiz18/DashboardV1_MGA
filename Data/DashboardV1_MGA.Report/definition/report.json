@@ -1,0 +1,124 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.3.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "CY26SU05",
+      "reportVersionAtImport": {
+        "visual": "2.9.0",
+        "report": "3.3.0",
+        "page": "2.3.1"
+      },
+      "type": "SharedResources"
+    },
+    "customTheme": {
+      "name": "CurCarazo_UNAN-Managua6548820675798471.json",
+      "reportVersionAtImport": {
+        "visual": "2.9.0",
+        "report": "3.3.0",
+        "page": "2.3.1"
+      },
+      "type": "RegisteredResources"
+    }
+  },
+  "objects": {
+    "section": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Top'"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "expanded": {
+            "expr": {
+              "Literal": {
+                "Value": "false"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "publicCustomVisuals": [
+    "textFilter25A4896A83E0487089E2B90C9AE57C8A",
+    "htmlContent443BE3AD55E043BF878BED274D3A6855",
+    "Sunburst1445472000808",
+    "hierarchyChartByAkvelon6F792A8745784877BCD8F4ACA5AD4207"
+  ],
+  "resourcePackages": [
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "CY26SU05",
+          "path": "BaseThemes/CY26SU05.json",
+          "type": "BaseTheme"
+        }
+      ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "Bandera6165737690703627.jpg",
+          "path": "Bandera6165737690703627.jpg",
+          "type": "Image"
+        },
+        {
+          "name": "CurCarazo_UNAN-Managua6548820675798471.json",
+          "path": "CurCarazo_UNAN-Managua6548820675798471.json",
+          "type": "CustomTheme"
+        },
+        {
+          "name": "Imagenfondo05697237372849007.png",
+          "path": "Imagenfondo05697237372849007.png",
+          "type": "Image"
+        },
+        {
+          "name": "Imagenfondo26256426450078085.png",
+          "path": "Imagenfondo26256426450078085.png",
+          "type": "Image"
+        },
+        {
+          "name": "Imagenfondo3014149193395781.png",
+          "path": "Imagenfondo3014149193395781.png",
+          "type": "Image"
+        },
+        {
+          "name": "Imagenfondo3489062998748492.png",
+          "path": "Imagenfondo3489062998748492.png",
+          "type": "Image"
+        },
+        {
+          "name": "Imagenfondo6929076601892225.png",
+          "path": "Imagenfondo6929076601892225.png",
+          "type": "Image"
+        },
+        {
+          "name": "Imagenfondo864616446249121.png",
+          "path": "Imagenfondo864616446249121.png",
+          "type": "Image"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "exportDataMode": "AllowSummarized",
+    "defaultDrillFilterOtherVisuals": true,
+    "allowChangeFilterTypes": true,
+    "useEnhancedTooltips": true,
+    "useDefaultAggregateDisplayName": true
+  }
+}

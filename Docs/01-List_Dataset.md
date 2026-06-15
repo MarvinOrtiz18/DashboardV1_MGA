@@ -5,21 +5,19 @@
 > **Proyecto:** DashboardV1_MGA  
 > **Institución:** Centro Universitario Regional de Carazo — UNAN Managua  
 > **Versión:** 1.2  
-> **Archivo fuente:** `Inventario_CurCarazo.csv`  
-> **Total de registros:** ~195 activos TI  
-> **Última actualización de este documento:** Abril 2026  
+> **Última actualización de este documento:** junio 2026  
 
 ---
 
 ## Descripción General
 
-El dataset `Inventario_CurCarazo.csv` contiene el registro completo de los activos tecnológicos asignados a las diferentes áreas, departamentos y laboratorios del Centro Universitario Regional de Carazo (CUR Carazo) de la UNAN Managua. Incluye equipos de cómputo (Desktop, Laptop), impresoras, teléfonos, UPS y otros dispositivos TI distribuidos en los distintos edificios e instalaciones de la institución.
+El dataset `Inventario_CurCarazo` contiene el registro completo de los activos tecnológicos asignados a las diferentes áreas, departamentos y laboratorios del Centro Universitario Regional de Carazo (CUR Carazo) de la UNAN Managua. Incluye equipos de cómputo (Desktop, Laptop), impresoras, teléfonos, UPS y otros dispositivos TI distribuidos en los distintos edificios e instalaciones de la institución.
 
 ---
 
 ## Estructura de Columnas
 
-El dataset está compuesto por **19 columnas** organizadas de la siguiente manera:
+El dataset está compuesto por **23 columnas** organizadas de la siguiente manera:
 
 | # | Nombre del Campo | Tipo de Dato | Descripción | Ejemplo |
 |---|-----------------|--------------|-------------|---------|
@@ -42,6 +40,10 @@ El dataset está compuesto por **19 columnas** organizadas de la siguiente maner
 | 17 | `Office` | Texto | Suite de productividad de Microsoft instalada en el equipo. Vacío si no tiene Office instalado o no fue verificado. | `365`, `Office 2016` |
 | 18 | `Edición de Office` | Texto | Edición específica de Microsoft Office. Campo reservado para uso futuro; actualmente sin valores en los registros. | *(vacío)* |
 | 19 | `Inventario` | Texto | Número de inventario físico asignado institucionalmente al activo. Puede incluir sufijos alfabéticos (`-A`) para activos relacionados o con variantes. | `85316`, `85316-A` |
+| 20 | `Ubicación_Maps` | Texto | Referencia geoespacial o de localización utilizada para identificar el punto físico del activo en mapas, vistas territoriales o paneles de ubicación. Este campo complementa la descripción operativa de `Ubicación` y facilita la representación espacial del inventario. | `Torreón Universitario de la Facultad...` |
+| 21 | `Modelo` | Texto | Modelo comercial o referencia técnica del dispositivo. Permite diferenciar variantes dentro de una misma marca y mejorar la clasificación del parque tecnológico. | `D11S` |
+| 22 | `Serie` | Texto | Número de serie asignado por el fabricante para identificar de manera única el activo. Se utiliza para trazabilidad, auditoría y conciliación de inventario. | `DHOZ233` |
+| 23 | `Tamaño de disco` | Texto | Capacidad de almacenamiento principal instalada en el equipo. Se registra como valor estandarizado para análisis comparativo del hardware. | `512 GB`, `256 GB`, `1 TB` |
 
 ---
 
@@ -59,11 +61,13 @@ El dataset está compuesto por **19 columnas** organizadas de la siguiente maner
 
 ---
 
-## 📌 Notas de Implementación para Power BI
+## Notas
 
 - El campo `IP` debe tratarse como **texto**, no como número, para preservar el formato de red.
 - El campo `MAC` requiere transformación en Power Query para separar la dirección Ethernet de la Wi-Fi si se desea analizar por separado.
 - Se recomienda crear una columna calculada **`Antigüedad_Generacional`** derivada de `Gen_Procesador` para clasificar equipos como: *Obsoleto*, *En transición* o *Vigente*.
-- El campo `Inventario` debe mantenerse como texto para conservar los sufijos `-A`, `-B`.
+- El campo `Inventario` debe mantenerse como texto para conservar los sufijos `-A`, `-B` que puedan encontrarse en las diferentes etiquetas de Inventario.
+- Los campos `Modelo`, `Serie`, `Ubicación_Maps` y `Tamaño de disco` deben mantenerse como texto para conservar su formato original y facilitar la limpieza posterior en Power Query.
 
 ---
+

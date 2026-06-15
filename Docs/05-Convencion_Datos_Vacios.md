@@ -14,12 +14,14 @@ Garantizar que ningún campo del inventario quede con valor **"En blanco"** al s
 
 La estandarización opera en **dos capas**:
 
-- 🔵 **Capa 1 — SharePoint List:** prevención en el origen al crear o editar registros
-- 🟡 **Capa 2 — Power Query (Power BI):** limpieza defensiva sobre registros históricos o con datos incompletos
+-  **Capa 1 — SharePoint List:** prevención en el origen al crear o editar registros
+-  **Capa 2 — Power Query (Power BI):** limpieza defensiva sobre registros históricos o con datos incompletos
 
 ---
 
 ## Convenciones Definidas
+
+La siguiente convención es una muestra de los posibles valores a asignar a los campos vacíos, **queda a decisión del Jefe del Área de TI.**
 
 | Convención | Significado | Cuándo usarla |
 |------------|-------------|---------------|
@@ -62,10 +64,10 @@ La estandarización opera en **dos capas**:
 Configurar como **requeridos** en la configuración de columna de la lista:
 
 ```
-✔ Titulo CURCarazo
-✔ Dispositivo
-✔ Ubicación
-✔ Área
+Titulo CURCarazo
+Dispositivo
+Ubicación
+Área
 ```
 
 ### Campos con Valor por Defecto

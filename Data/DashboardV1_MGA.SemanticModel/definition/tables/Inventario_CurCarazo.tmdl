@@ -1,0 +1,1521 @@
+table Inventario_CurCarazo
+	lineageTag: bc1dc90c-aca8-4365-abe8-a8489ea52113
+
+	measure 'Total Equipos' = COUNTROWS( Inventario_CurCarazo )
+		formatString: 0
+		lineageTag: fedb701f-81a7-43fa-9d1e-7c38856d1c62
+
+	measure 'Equipos Asignados' =
+			
+			COUNTROWS(
+			    FILTER(
+			        Inventario_CurCarazo,
+			        Inventario_CurCarazo[email] <> "Pendiente"
+			            && NOT( ISBLANK( Inventario_CurCarazo[email] ) )
+			    )
+			)
+		formatString: 0
+		lineageTag: 9ef79f4d-d4eb-4e43-987e-53971cb16de6
+
+	measure 'Equipos Sin Asignar' =
+			
+			[Total Equipos] - [Equipos Asignados]
+		formatString: 0
+		lineageTag: 48bce347-2bd3-44ab-8a27-3432065053fe
+
+	measure 'Pct Asignacion' =
+			
+			DIVIDE(
+			    [Equipos Asignados],
+			    [Total Equipos],
+			    0
+			)
+		lineageTag: de3149ed-d77d-48c1-9cab-d29b1e284a6c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Perifericos' =
+			
+			COUNTROWS(
+			    FILTER(
+			        Inventario_CurCarazo,
+			        Inventario_CurCarazo[Dispositivo] IN { "Desktop", "Laptop", "Impresora", "UPS", "Telefono", "Televisor", "Proyector", "Gatewar", "Switch", "Ap", "Monitor"}
+			    )
+			)
+		formatString: 0
+		lineageTag: ead8ee17-8831-42b8-85cf-b5e2de6abfee
+
+	measure 'Equipos por Area' = CALCULATE( [Total Equipos] )
+		formatString: 0
+		lineageTag: 9530cf4a-ef38-454c-800f-ce691aff18ed
+
+	measure 'Pct Area vs Total' =
+			
+			DIVIDE(
+			    [Equipos por Area],
+			    CALCULATE(
+			        [Total Equipos],
+			        ALL( Inventario_CurCarazo[Aréa] )
+			    ),
+			    0
+			)
+		lineageTag: 6afebacf-a760-494a-b1f8-5483af6e6518
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sin Asignar por Area' = CALCULATE( [Equipos Sin Asignar] )
+		formatString: 0
+		lineageTag: 26c0c2b5-1591-428a-a73a-df03054f106b
+
+	measure 'Promedio por Area' =
+			
+			AVERAGEX(
+			    VALUES( Inventario_CurCarazo[Aréa] ),
+			    CALCULATE( [Total Equipos] )
+			)
+		lineageTag: 2d653ae2-b05c-4943-8cd7-586b9ab7e7f9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Area Top' =
+			
+			CALCULATE(
+			    SELECTEDVALUE( Inventario_CurCarazo[Aréa] ),
+			    TOPN(
+			        1,
+			        SUMMARIZE(
+			            Inventario_CurCarazo,
+			            Inventario_CurCarazo[Aréa],
+			            "n", COUNTROWS( Inventario_CurCarazo )
+			        ),
+			        [n], DESC
+			    )
+			)
+		lineageTag: 51fce429-327a-4a46-993e-da9cb0f0c770
+
+	measure 'RAM Promedio GB' =
+			
+			AVERAGEX(
+			    FILTER(
+			        Inventario_CurCarazo,
+			        Inventario_CurCarazo[RAM] <> "Pendiente"
+			    ),
+			    VALUE(
+			        LEFT(
+			            Inventario_CurCarazo[RAM],
+			            FIND(" ", Inventario_CurCarazo[RAM]) - 1
+			        )
+			    )
+			)
+		formatString: 0
+		lineageTag: 14cfc4cb-4074-48d5-aa2d-6f22dda0a210
+
+	measure 'RAM Critica' =
+			
+			COUNTROWS(
+			    FILTER(
+			        Inventario_CurCarazo,
+			        Inventario_CurCarazo[Categoria RAM] = "Crítica (≤ 4GB)"
+			    )
+			)
+		formatString: 0
+		lineageTag: fd5ea629-91dd-41b4-bb6a-1e2956e7e668
+
+	measure 'SW Windows11' =
+			
+			COUNTROWS(
+			    FILTER(
+			        Inventario_CurCarazo,
+			        Inventario_CurCarazo[Sistema Operativo] = "Windows 11"
+			    )
+			)
+		formatString: 0
+		lineageTag: cf153598-f11f-4b84-9b10-ab0f1a42f824
+
+	measure 'SW Windows10' =
+			
+			COUNTROWS(
+			    FILTER(
+			        Inventario_CurCarazo,
+			        Inventario_CurCarazo[Sistema Operativo] = "Windows 10"
+			    )
+			)
+		formatString: 0
+		lineageTag: 37578055-4656-4d31-9566-d6815b50c3de
+
+	measure 'SW Office365' =
+			
+			COUNTROWS(
+			    FILTER(
+			        Inventario_CurCarazo,
+			        Inventario_CurCarazo[Office] = "365"
+			    )
+			)
+		formatString: 0
+		lineageTag: 7731b847-8322-4901-813a-8fe07f866c73
+
+	measure 'SW Office2016' =
+			
+			COUNTROWS(
+			    FILTER(
+			        Inventario_CurCarazo,
+			        Inventario_CurCarazo[Office] = "Office 2016"
+			    )
+			)
+		formatString: 0
+		lineageTag: 7e9c9915-88cf-4bca-8496-839e11975142
+
+	measure 'Header HTML' =
+			
+			"<div style='
+			    background: linear-gradient(135deg, #153455 0%, #2C5697 100%);
+			    border-bottom: 3px solid #F5BD46;
+			    padding: 8px 20px;
+			    display: flex;
+			    align-items: center;
+			    justify-content: space-between;
+			    width: 100%;
+			    height: 100%;
+			    font-family: Trebuchet MS, sans-serif;
+			    box-sizing: border-box;
+			'>
+			    <!-- LOGO + INSTITUCIÓN -->
+			    <div style='display: flex; align-items: center; gap: 14px;'>
+			        <div style='
+			            width: 42px; height: 42px;
+			            background: rgba(255,255,255,0.1);
+			            border: 1.5px solid #F5BD46;
+			            border-radius: 10px;
+			            display: flex; align-items: center; justify-content: center;
+			            flex-shrink: 0;
+			        '>
+			            <svg xmlns=""http://www.w3.org/2000/svg"" width=""24"" height=""24"" viewBox=""0 0 24 24"" fill=""none"">
+			                <rect x=""2"" y=""3"" width=""20"" height=""13"" rx=""2"" stroke=""#F5BD46"" stroke-width=""1.5"" fill=""none""/>
+			                <path d=""M8 21h8M12 17v4"" stroke=""#F5BD46"" stroke-width=""1.5"" stroke-linecap=""round""/>
+			                <circle cx=""8"" cy=""9"" r=""1.2"" fill=""#FFFFFF""/>
+			                <circle cx=""12"" cy=""9"" r=""1.2"" fill=""#F5BD46""/>
+			                <circle cx=""16"" cy=""9"" r=""1.2"" fill=""#FFFFFF""/>
+			                <path d=""M8 9h1.8M13.2 9H14.8"" stroke=""rgba(255,255,255,0.4)"" stroke-width=""1"" stroke-linecap=""round""/>
+			                <path d=""M9.5 12.5a3.5 3.5 0 015 0"" stroke=""#FFFFFF"" stroke-width=""1.2"" stroke-linecap=""round"" fill=""none""/>
+			                <path d=""M11 13.8a1.5 1.5 0 012 0"" stroke=""#FFFFFF"" stroke-width=""1.2"" stroke-linecap=""round"" fill=""none""/>
+			            </svg>
+			        </div>
+			        <div>
+			            <div style='
+			                font-size: 14px;
+			                font-weight: 700;
+			                color: #FFFFFF;
+			                letter-spacing: 0.3px;
+			                line-height: 1.3;
+			            '>Universidad Nacional Autónoma de Nicaragua, Managua</div>
+			            <div style='
+			                font-size: 14px;
+			                color: #F5BD46;
+			                font-weight: 600;
+			                letter-spacing: 0.5px;
+			            '>UNAN-Managua &nbsp;·&nbsp; CUR-Carazo</div>
+			        </div>
+			    </div>
+			
+			    <!-- CENTRO -->
+			    <div style='text-align: center;'>
+			        <div style='
+			            font-size: 14px;
+			            font-weight: 700;
+			            color: #F5BD46;
+			            letter-spacing: 1px;
+			            text-transform: uppercase;
+			        '>Reporte de Inventario Tecnológico</div>
+			        <div style='
+			            font-size: 14px;
+			            color: rgba(255,255,255,0.6);
+			            margin-top: 2px;
+			            letter-spacing: 0.5px;
+			        '>Dashboard de gestión de activos tecnológicos institucionales</div>
+			    </div>
+			
+			    <!-- FECHA + ESTADO -->
+			    <div style='text-align: right;'>
+			        <div style='
+			            font-size: 12px;
+			            color: rgba(255,255,255,0.6);
+			            font-weight: 600;
+			            margin-bottom: 4px;
+			            letter-spacing: 0.5px;
+			        '>Fecha actual</div>
+			        <div style='
+			            font-size: 14px;
+			            color: #FFFFFF;
+			            font-weight: 700;
+			        '>" & FORMAT(TODAY(), "DD/MM/YYYY") & "</div>
+			        <div style='
+			            display: inline-block;
+			            margin-top: 4px;
+			            background: rgba(44,86,151,0.4);
+			            border: 1px solid #FFFFFF;
+			            border-radius: 20px;
+			            padding: 2px 10px;
+			            font-size: 10px;
+			            color: #FFFFFF;
+			            font-weight: 600;
+			        '>● EN LÍNEA</div>
+			    </div>
+			</div>"
+		lineageTag: eb6d5a65-a670-4be1-bf8f-784063cdd99c
+
+	measure 'Footer HTML' =
+			
+			"<div style='
+			    background:linear-gradient(135deg,#13131F 0%,#1E1B4B 100%);
+			    border-top:2px solid #7C3AED;
+			    padding:6px 20px;
+			    display:flex;
+			    align-items:center;
+			    justify-content:center;
+			    width:100%;
+			    height:100%;
+			    font-family:Segoe UI,sans-serif;
+			    box-sizing:border-box;
+			'>
+			    <span style='
+			        font-size:9px;
+			        color:#6D6D8A;
+			        letter-spacing:0.5px;
+			    '>© " & FORMAT(TODAY(), "YYYY") & " &nbsp;·&nbsp; Todos los derechos reservados &nbsp;·&nbsp; Desarrollado por <span style=""color:#A78BFA;font-weight:600;"">Área de TI — CUR-Carazo</span></span>
+			</div>"
+		lineageTag: a417b2e2-2f12-45a9-9de9-ecda287acf32
+
+	measure 'Total Bueno' =
+			
+			CALCULATE(
+			    COUNTROWS('Inventario_CurCarazo'),
+			    'Inventario_CurCarazo'[Estado] = "Bueno"
+			)
+		formatString: 0
+		lineageTag: 7e4bd007-9450-4942-803e-f101d9c18e3b
+
+	measure 'Total Malo' =
+			
+			CALCULATE(
+			    COUNTROWS('Inventario_CurCarazo'),
+			    'Inventario_CurCarazo'[Estado] = "Malo"
+			)
+		formatString: 0
+		lineageTag: 5228b6cf-05b2-47cd-89d7-ee14082690b7
+
+	measure 'Total Regular' =
+			
+			CALCULATE(
+			    COUNTROWS('Inventario_CurCarazo'),
+			    'Inventario_CurCarazo'[Estado] = "Regular"
+			)
+		formatString: 0
+		lineageTag: 17b37f17-261f-46a2-a925-4ca82f68997c
+
+	measure 'Label Pct RAM' =
+			
+			VAR Total = [Total Equipos]
+			VAR Pct = FORMAT( DIVIDE( Total, CALCULATE( [Total Equipos], ALL( Inventario_CurCarazo[RAM] ) ), 0 ) * 100, "0.0" )
+			RETURN
+			Total & "  (" & Pct & "%)"
+		lineageTag: 68958985-0f15-46ec-b5d8-606b2c7166b5
+
+	measure 'Label Pct SO' =
+			
+			VAR Total = [Total Equipos]
+			VAR Pct = FORMAT( DIVIDE( Total, CALCULATE( [Total Equipos], ALL( Inventario_CurCarazo[Sistema Operativo] ) ), 0 ) * 100, "0.0" )
+			RETURN
+			Total & "  (" & Pct & "%)"
+		lineageTag: 0123c743-daa0-4738-ae1b-2c35f0fe828b
+
+	measure 'Pct Windows11' = DIVIDE( [SW Windows11], [Total Equipos], 0 )
+		lineageTag: a9ef52b5-cb1f-4cf3-9c6d-01acba7cdea6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Pct Windows10' = DIVIDE( [SW Windows10], [Total Equipos], 0 )
+		lineageTag: 929a6f94-7b36-4bd3-be26-8d6ee6c4b430
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Pct RAM' =
+			
+			DIVIDE(
+			    [Total Equipos],
+			    CALCULATE( [Total Equipos], ALL( Inventario_CurCarazo[RAM] ) ),
+			    0
+			)
+		lineageTag: 234eaab8-301c-4d88-851e-8d56a0fd392e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Office 365' =
+			
+			CALCULATE(COUNTROWS('Inventario_CurCarazo'),
+			'Inventario_CurCarazo'[Office] = "365")
+		formatString: 0
+		lineageTag: bd39fceb-f7bc-4314-91cb-a4d17eab2f47
+
+	measure 'Total Office 2016' =
+			
+			CALCULATE(COUNTROWS('Inventario_CurCarazo'),
+			'Inventario_CurCarazo'[Office] = "Office 2016")
+		formatString: 0
+		lineageTag: fa35eb4a-1731-459f-8544-dc22defb535d
+
+	measure 'Total Office Pendiente' =
+			
+			CALCULATE(COUNTROWS('Inventario_CurCarazo'),
+			'Inventario_CurCarazo'[Office] = "Pendiente")
+		formatString: 0
+		lineageTag: 99ae8c4b-2b5f-47d7-9926-7a61faa430df
+
+	measure 'Pct SO365' =
+			
+			DIVIDE( [SW Office365], [Total Equipos], 0 )
+		lineageTag: e3acc8e5-0d3c-4eec-8fb1-1a858ee85afd
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Pct SO2016' =
+			
+			DIVIDE( [SW Office2016], [Total Equipos], 0 )
+		lineageTag: 75ffa389-375c-4947-944f-4effa98d95a2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'HW Obsoletos' =
+			
+			COUNTROWS(
+			    FILTER(
+			        Inventario_CurCarazo,
+			        Inventario_CurCarazo[Categoria Obsolescencia] = "Obsoleto"
+			    )
+			)
+		formatString: 0
+		lineageTag: b2287745-3471-46dd-9d79-8bb817abefd8
+
+	measure 'HW Vigilancia' =
+			
+			COUNTROWS(
+			    FILTER(
+			        Inventario_CurCarazo,
+			        Inventario_CurCarazo[Categoria Obsolescencia] = "Vigilancia"
+			    )
+			)
+		formatString: 0
+		lineageTag: c3d6e3dd-7446-498d-b3ea-f126c4155cd4
+
+	measure 'HW Vigentes' =
+			
+			COUNTROWS(
+			    FILTER(
+			        Inventario_CurCarazo,
+			        Inventario_CurCarazo[Categoria Obsolescencia] = "Vigente"
+			    )
+			)
+		formatString: 0
+		lineageTag: 7e87b851-6965-422e-a76d-c45d109ddb0e
+
+	measure 'Pct Obsolescencia' =
+			
+			DIVIDE(
+			    [HW Obsoletos],
+			    COUNTROWS(
+			        FILTER(
+			            Inventario_CurCarazo,
+			            Inventario_CurCarazo[Categoria Obsolescencia] <> "Pendiente"
+			        )
+			    ),
+			    0
+			)
+		lineageTag: beda82c8-5f1f-46f2-a382-42fcd590b499
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Equipos Pendientes Info' =
+			
+			COUNTROWS(
+			    FILTER(
+			        Inventario_CurCarazo,
+			        Inventario_CurCarazo[email]    = "Pendiente" || ISBLANK(Inventario_CurCarazo[email])
+			            || Inventario_CurCarazo[Nombre del equipo] = "Pendiente" || ISBLANK(Inventario_CurCarazo[Nombre del equipo])
+			            || Inventario_CurCarazo[Estado]            = "Pendiente" || ISBLANK(Inventario_CurCarazo[Estado])
+			            || Inventario_CurCarazo[Ubicación]         = "Pendiente" || ISBLANK(Inventario_CurCarazo[Ubicación])
+			            || Inventario_CurCarazo[Aréa]              = "Pendiente" || ISBLANK(Inventario_CurCarazo[Aréa])
+			            || Inventario_CurCarazo[IP]                = "Pendiente" || ISBLANK(Inventario_CurCarazo[IP])
+			            || Inventario_CurCarazo[MAC]               = "Pendiente" || ISBLANK(Inventario_CurCarazo[MAC])
+			            || Inventario_CurCarazo[Dispositivo]       = "Pendiente" || ISBLANK(Inventario_CurCarazo[Dispositivo])
+			            || Inventario_CurCarazo[Marca]             = "Pendiente" || ISBLANK(Inventario_CurCarazo[Marca])
+			            || Inventario_CurCarazo[Procesador]        = "Pendiente" || ISBLANK(Inventario_CurCarazo[Procesador])
+			            || Inventario_CurCarazo[Gen_Procesador]    = "Pendiente" || ISBLANK(Inventario_CurCarazo[Gen_Procesador])
+			            || Inventario_CurCarazo[RAM]               = "Pendiente" || ISBLANK(Inventario_CurCarazo[RAM])
+			            || Inventario_CurCarazo[Sistema Operativo] = "Pendiente" || ISBLANK(Inventario_CurCarazo[Sistema Operativo])
+			            || Inventario_CurCarazo[Edición del S.O]   = "Pendiente" || ISBLANK(Inventario_CurCarazo[Edición del S.O])
+			            || Inventario_CurCarazo[Office]            = "Pendiente" || ISBLANK(Inventario_CurCarazo[Office])
+			            || Inventario_CurCarazo[Inventario]        = "Pendiente" || ISBLANK(Inventario_CurCarazo[Inventario])
+			    )
+			)
+		formatString: 0
+		lineageTag: bb3367a1-4c86-44d0-9856-f8ebd2c698d6
+
+	measure 'Pct Datos Completos' =
+			
+			DIVIDE(
+			    COUNTROWS(
+			        FILTER(
+			            Inventario_CurCarazo,
+			            Inventario_CurCarazo[email]              <> "Pendiente" && NOT(ISBLANK(Inventario_CurCarazo[email]))
+			                && Inventario_CurCarazo[Nombre del equipo] <> "Pendiente" && NOT(ISBLANK(Inventario_CurCarazo[Nombre del equipo]))
+			                && Inventario_CurCarazo[Estado]            <> "Pendiente" && NOT(ISBLANK(Inventario_CurCarazo[Estado]))
+			                && Inventario_CurCarazo[Ubicación]         <> "Pendiente" && NOT(ISBLANK(Inventario_CurCarazo[Ubicación]))
+			                && Inventario_CurCarazo[Aréa]              <> "Pendiente" && NOT(ISBLANK(Inventario_CurCarazo[Aréa]))
+			                && Inventario_CurCarazo[IP]                <> "Pendiente" && NOT(ISBLANK(Inventario_CurCarazo[IP]))
+			                && Inventario_CurCarazo[MAC]               <> "Pendiente" && NOT(ISBLANK(Inventario_CurCarazo[MAC]))
+			                && Inventario_CurCarazo[Dispositivo]       <> "Pendiente" && NOT(ISBLANK(Inventario_CurCarazo[Dispositivo]))
+			                && Inventario_CurCarazo[Marca]             <> "Pendiente" && NOT(ISBLANK(Inventario_CurCarazo[Marca]))
+			                && Inventario_CurCarazo[Procesador]        <> "Pendiente" && NOT(ISBLANK(Inventario_CurCarazo[Procesador]))
+			                && Inventario_CurCarazo[Gen_Procesador]    <> "Pendiente" && NOT(ISBLANK(Inventario_CurCarazo[Gen_Procesador]))
+			                && Inventario_CurCarazo[RAM]               <> "Pendiente" && NOT(ISBLANK(Inventario_CurCarazo[RAM]))
+			                && Inventario_CurCarazo[Sistema Operativo] <> "Pendiente" && NOT(ISBLANK(Inventario_CurCarazo[Sistema Operativo]))
+			                && Inventario_CurCarazo[Edición del S.O]   <> "Pendiente" && NOT(ISBLANK(Inventario_CurCarazo[Edición del S.O]))
+			                && Inventario_CurCarazo[Office]            <> "Pendiente" && NOT(ISBLANK(Inventario_CurCarazo[Office]))
+			                && Inventario_CurCarazo[Inventario]        <> "Pendiente" && NOT(ISBLANK(Inventario_CurCarazo[Inventario]))
+			        )
+			    ),
+			    [Total Equipos],
+			    0
+			)
+		lineageTag: 6988d5a0-c300-47be-9574-b65acb2a41c1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Datos Completos' =
+			
+			[Total Equipos] - [Equipos Pendientes Info]
+		formatString: 0
+		lineageTag: 73beaa55-73bd-41fa-9e83-f2af668fce80
+
+	measure 'Pendientes por Area' =
+			
+			COUNTROWS(
+			    FILTER(
+			        Inventario_CurCarazo,
+			        Inventario_CurCarazo[Categoria Obsolescencia] = "Pendiente"
+			            || Inventario_CurCarazo[Categoria RAM] = "Pendiente"
+			    )
+			)
+		formatString: 0
+		lineageTag: 64df5580-ef82-450a-98c5-074046b0b557
+
+	measure 'Tooltip HTML Obsolescencia' =
+			
+			VAR Cat = SELECTEDVALUE( Inventario_CurCarazo[Categoria Obsolescencia] )
+			VAR TotalCat = [Total Equipos]
+			VAR PctCat = FORMAT( DIVIDE( TotalCat, CALCULATE( [Total Equipos], ALL( Inventario_CurCarazo[Categoria Obsolescencia] ) ), 0 ) * 100, "0.0" )
+			
+			VAR Descripcion =
+			    SWITCH(
+			        Cat,
+			        "Obsoleto",   "Equipos con procesador Gen 3 o anterior. Rendimiento limitado, sin soporte de actualizaciones de seguridad. Se recomienda reemplazo inmediato.",
+			        "Vigilancia", "Equipos con procesador Gen 5 a Gen 9. Funcionan correctamente pero se acercan al fin de su vida útil. Planificar reemplazo a mediano plazo.",
+			        "Vigente",    "Equipos con procesador Gen 10 o superior. Rendimiento óptimo y soporte activo. No requieren acción inmediata.",
+			        "Pendiente",  "Equipos cuya información de generación de procesador aún no ha sido registrada en el inventario.",
+			        "Sin información"
+			    )
+			
+			VAR ColorBorde =
+			    SWITCH(
+			        Cat,
+			        "Obsoleto",   "#DC0A32",
+			        "Vigilancia", "#F5BD46",
+			        "Vigente",    "#2C5697",
+			        "Pendiente",  "#9D9D9C",
+			        "#153455"
+			    )
+			
+			VAR ColorTexto =
+			    SWITCH(
+			        Cat,
+			        "Obsoleto",   "#DC0A32",
+			        "Vigilancia", "#B8860B",
+			        "Vigente",    "#2C5697",
+			        "Pendiente",  "#9D9D9C",
+			        "#153455"
+			    )
+			
+			VAR ColorFondoBarra =
+			    SWITCH(
+			        Cat,
+			        "Obsoleto",   "#FDECEA",
+			        "Vigilancia", "#FEF6E0",
+			        "Vigente",    "#EAF0FB",
+			        "Pendiente",  "#F5F5F5",
+			        "#F0F0F0"
+			    )
+			
+			VAR Icono =
+			    SWITCH(
+			        Cat,
+			        "Obsoleto",   "",
+			        "Vigilancia", "",
+			        "Vigente",    "",
+			        "Pendiente",  "",
+			        "Generación de Procesadores de Desktop y Laptop"
+			    )
+			
+			RETURN
+			"<div style='
+			    background:#FFFFFF;
+			    border:2px solid " & ColorBorde & ";
+			    border-radius:8px;
+			    padding:12px 14px;
+			    font-family:Trebuchet MS, sans-serif;
+			    width:100%;
+			    height:100%;
+			    box-sizing:border-box;
+			'>
+			    <div style='
+			        font-size:13px;
+			        font-weight:700;
+			        color:" & ColorTexto & ";
+			        margin-bottom:8px;
+			        display:flex;
+			        align-items:center;
+			        gap:6px;
+			        border-bottom:1px solid #E0E0E0;
+			        padding-bottom:8px;
+			    '>" & Icono & " " & Cat & "</div>
+			
+			    <div style='
+			        font-size:10px;
+			        color:#9D9D9C;
+			        font-weight:600;
+			        margin-bottom:4px;
+			        text-transform:uppercase;
+			        letter-spacing:0.5px;
+			    '>Total equipos</div>
+			
+			    <div style='
+			        font-size:22px;
+			        font-weight:700;
+			        color:" & ColorTexto & ";
+			        margin-bottom:4px;
+			        line-height:1;
+			    '>" & TotalCat & "
+			        <span style='font-size:12px;color:#9D9D9C;font-weight:400;'>(" & PctCat & "%)</span>
+			    </div>
+			
+			    <div style='
+			        background:" & ColorFondoBarra & ";
+			        border-radius:6px;
+			        height:8px;
+			        margin-bottom:12px;
+			        overflow:hidden;
+			    '>
+			        <div style='
+			            background:" & ColorBorde & ";
+			            width:" & PctCat & "%;
+			            height:8px;
+			            border-radius:6px;
+			        '></div>
+			    </div>
+			
+			    <div style='
+			        font-size:10px;
+			        color:#153455;
+			        line-height:1.5;
+			    '>" & Descripcion & "</div>
+			</div>"
+		lineageTag: 75e2b2ca-5498-43d9-95f6-4fcd47104962
+
+	measure HTML_Edificio_Card =
+			
+			VAR EdificioSeleccionado = SELECTEDVALUE('Edificios'[Ubicación_Maps], "Selecciona un edificio en el mapa")
+			
+			RETURN
+			IF(
+			    SELECTEDVALUE('Edificios'[Ubicación_Maps]) = BLANK(),
+			    "<div style='
+			        background:transparent;
+			        border:1.5px solid #3B1F6E;
+			        border-radius:8px;
+			        padding:30px;
+			        font-family:Segoe UI, sans-serif;
+			        text-align:center;
+			        box-sizing:border-box;
+			        width:100%;
+			        height:100%;
+			    '>
+			        <div style='
+			            width:48px;
+			            height:48px;
+			            background:rgba(124,58,237,0.15);
+			            border:1.5px solid #7C3AED;
+			            border-radius:50%;
+			            display:flex;
+			            align-items:center;
+			            justify-content:center;
+			            margin:0 auto 14px;
+			        '>
+			            <svg xmlns=""http://www.w3.org/2000/svg"" width=""22"" height=""22"" viewBox=""0 0 24 24"" fill=""none"">
+			                <path d=""M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"" stroke=""#A855F7"" stroke-width=""1.5"" fill=""none""/>
+			                <circle cx=""12"" cy=""9"" r=""2.5"" stroke=""#A855F7"" stroke-width=""1.5"" fill=""none""/>
+			            </svg>
+			        </div>
+			        <div style='font-size:11px;color:#FFFFFF;letter-spacing:0.3px;line-height:1.5;'>
+			            Selecciona un edificio<br>en el mapa para ver el detalle
+			        </div>
+			    </div>",
+			
+			    "<div style='
+			        background:transparent;
+			        border:1.5px solid #7C3AED;
+			        border-radius:8px;
+			        padding:16px;
+			        font-family:Segoe UI, sans-serif;
+			        box-sizing:border-box;
+			        width:100%;
+			        height:100%;
+			    '>
+			        <div style='
+			            background:linear-gradient(135deg,#1E1B4B,#2D2060);
+			            border:1px solid #7C3AED;
+			            border-radius:8px;
+			            padding:14px 16px;
+			            margin-bottom:14px;
+			        '>
+			            <div style='
+			                font-size:9px;
+			                color:#A78BFA;
+			                letter-spacing:1.5px;
+			                text-transform:uppercase;
+			                font-weight:600;
+			                margin-bottom:6px;
+			            '>Edificio seleccionado</div>
+			            <div style='
+			                font-size:13px;
+			                font-weight:700;
+			                color:#E2E2F0;
+			                line-height:1.4;
+			            '>" & EdificioSeleccionado & "</div>
+			        </div>
+			
+			        <div style='
+			            display:flex;
+			            align-items:center;
+			            gap:8px;
+			            padding:10px 12px;
+			            background:rgba(168,85,247,0.08);
+			            border:0.5px solid #3B1F6E;
+			            border-radius:6px;
+			            margin-bottom:10px;
+			        '>
+			            <svg xmlns=""http://www.w3.org/2000/svg"" width=""16"" height=""16"" viewBox=""0 0 24 24"" fill=""none"">
+			                <path d=""M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"" stroke=""#A855F7"" stroke-width=""1.5"" fill=""none""/>
+			                <circle cx=""12"" cy=""9"" r=""2.5"" stroke=""#A855F7"" stroke-width=""1.5"" fill=""none""/>
+			            </svg>
+			            <span style='font-size:10px;color:#C4B5FD;font-weight:500;'>Ubicación en mapa activa</span>
+			            <div style='
+			                margin-left:auto;
+			                width:8px;
+			                height:8px;
+			                border-radius:50%;
+			                background:#34D399;
+			                box-shadow:0 0 4px #34D399;
+			            '></div>
+			        </div>
+			    </div>"
+			)
+		lineageTag: 5a4aec31-a187-49e9-af2a-61a4aa69223d
+
+	measure 'SW Office2019' =
+			
+			COUNTROWS(
+			    FILTER(
+			        Inventario_CurCarazo,
+			        Inventario_CurCarazo[Office] = "Office 2019"
+			    )
+			)
+		formatString: 0
+		lineageTag: 8dcc9694-3b92-4c26-8c8d-5fcdb313f89b
+
+	measure 'SW Office2021' =
+			
+			COUNTROWS(
+			    FILTER(
+			        Inventario_CurCarazo,
+			        Inventario_CurCarazo[Office] = "Office 2021"
+			    )
+			)
+		formatString: 0
+		lineageTag: c8bd6dfd-8f43-42cd-93b9-d43ceaa6262e
+
+	measure 'Label Pct EQUIPOS' =
+			
+			VAR Total = [Total Equipos]
+			VAR Pct = FORMAT( DIVIDE( Total, CALCULATE( [Total Equipos], ALL( Inventario_CurCarazo[Dispositivo] ) ), 0 ) * 100, "0.0" )
+			RETURN
+			Total & "  (" & Pct & "%)"
+		lineageTag: bb3f1e4d-e07c-40fa-943c-aa8c1bfadb66
+
+	measure 'Equipos Sin MAC' =
+			
+			COUNTROWS(
+			    FILTER(
+			        Inventario_CurCarazo,
+			        UPPER( TRIM( Inventario_CurCarazo[MAC] ) ) = "PENDIENTE"
+			            || Inventario_CurCarazo[MAC] = "Medios desconectados"
+			            || ISBLANK( Inventario_CurCarazo[MAC] )
+			    )
+			)
+		formatString: 0
+		lineageTag: 57f9a124-47ff-4cfe-8f6e-757aebd9726a
+
+	measure 'Equipos Sin IP' =
+			
+			COUNTROWS(
+			    FILTER(
+			        Inventario_CurCarazo,
+			        UPPER( TRIM( Inventario_CurCarazo[IP] ) ) = "PENDIENTE"
+			            || Inventario_CurCarazo[IP] = "Medios desconectados"
+			            || ISBLANK( Inventario_CurCarazo[IP] )
+			    )
+			)
+		formatString: 0
+		lineageTag: e29673ed-61f3-4192-aacf-fce9a64aa319
+
+	measure 'Equipos con Inventario Duplicado' =
+			
+			COUNTROWS(
+			    FILTER(
+			        Inventario_CurCarazo,
+			        Inventario_CurCarazo[Inventario Duplicado] <> "OK"
+			            && NOT( ISBLANK( Inventario_CurCarazo[Inventario Duplicado] ) )
+			    )
+			)
+		formatString: 0
+		lineageTag: e546e05c-4eb7-46e2-8dfd-a4fca962cf45
+
+	measure 'Duplicados por Area' =
+			
+			COUNTROWS(
+			    FILTER(
+			        Inventario_CurCarazo,
+			        Inventario_CurCarazo[Inventario Duplicado] <> "OK"
+			            && NOT( ISBLANK( Inventario_CurCarazo[Inventario Duplicado] ) )
+			    )
+			)
+		formatString: 0
+		lineageTag: 3951e0ff-1992-49ae-95e8-3ab73e0d708f
+
+	measure 'Titulo Tabla Duplicados' =
+			
+			"Inventarios duplicados — " & [Equipos con Inventario Duplicado] & " números repetidos"
+		lineageTag: e732f721-2b65-409e-8058-ff6c8d04f7a6
+
+	measure 'Equipos Sin Modelo' =
+			
+			COUNTROWS(
+			    FILTER(
+			        Inventario_CurCarazo,
+			        UPPER( TRIM( Inventario_CurCarazo[Modelo] ) ) = "PENDIENTE"
+			            || ISBLANK( Inventario_CurCarazo[Modelo] )
+			    )
+			)
+		formatString: 0
+		lineageTag: 83028e87-f091-40f4-bdcc-61711c1ae797
+
+	measure 'Equipos Sin Serie' =
+			
+			COUNTROWS(
+			    FILTER(
+			        Inventario_CurCarazo,
+			        UPPER( TRIM( Inventario_CurCarazo[Serie] ) ) = "PENDIENTE"
+			            || ISBLANK( Inventario_CurCarazo[Serie] )
+			    )
+			)
+		formatString: 0
+		lineageTag: a2967506-e52f-4c68-abd3-d25f97ff8126
+
+	measure 'Pct Modelo Completo' =
+			
+			DIVIDE(
+			    COUNTROWS(
+			        FILTER(
+			            Inventario_CurCarazo,
+			            UPPER( TRIM( Inventario_CurCarazo[Modelo] ) ) <> "PENDIENTE"
+			                && NOT( ISBLANK( Inventario_CurCarazo[Modelo] ) )
+			        )
+			    ),
+			    [Total Equipos],
+			    0
+			)
+		lineageTag: c57feee8-0a1f-4c28-8a14-52ffec9159d3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Pct Serie Completo' =
+			
+			DIVIDE(
+			    COUNTROWS(
+			        FILTER(
+			            Inventario_CurCarazo,
+			            UPPER( TRIM( Inventario_CurCarazo[Serie] ) ) <> "PENDIENTE"
+			                && NOT( ISBLANK( Inventario_CurCarazo[Serie] ) )
+			        )
+			    ),
+			    [Total Equipos],
+			    0
+			)
+		lineageTag: d0fdac7c-a364-4c3f-8be8-e39a51b3495d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Modelos Distintos' =
+			
+			DISTINCTCOUNT( Inventario_CurCarazo[Modelo] )
+		formatString: 0
+		lineageTag: 868a13bd-3b01-4b57-8c9a-e1ae62504057
+
+	measure 'Modelo Mas Frecuente' =
+			
+			CALCULATE(
+			    SELECTEDVALUE( Inventario_CurCarazo[Modelo] ),
+			    TOPN(
+			        1,
+			        SUMMARIZE(
+			            FILTER(
+			                Inventario_CurCarazo,
+			                UPPER( TRIM( Inventario_CurCarazo[Modelo] ) ) <> "PENDIENTE"
+			                    && NOT( ISBLANK( Inventario_CurCarazo[Modelo] ) )
+			            ),
+			            Inventario_CurCarazo[Modelo],
+			            "n", COUNTROWS( Inventario_CurCarazo )
+			        ),
+			        [n], DESC
+			    )
+			)
+		lineageTag: e3eeeab1-5c17-4e48-9274-f623e1cc4838
+
+	measure 'Equipos por Modelo' =
+			
+			CALCULATE( [Total Equipos] )
+		formatString: 0
+		lineageTag: fd1f6397-090b-4d8e-81b1-00c059bca9bd
+
+	measure 'Series Duplicadas' =
+			
+			COUNTROWS(
+			    FILTER(
+			        SUMMARIZE(
+			            FILTER(
+			                Inventario_CurCarazo,
+			                NOT( ISBLANK( Inventario_CurCarazo[Serie] ) )
+			                    && UPPER( TRIM( Inventario_CurCarazo[Serie] ) ) <> "PENDIENTE"
+			            ),
+			            Inventario_CurCarazo[Serie],
+			            "Total", COUNTROWS( Inventario_CurCarazo )
+			        ),
+			        [Total] > 1
+			    )
+			)
+		formatString: 0
+		lineageTag: 7dcf84e7-4db2-426c-bf57-06d00bff230e
+
+	measure 'Equipos Con Serie Duplicada' =
+			
+			COUNTROWS(
+			    FILTER(
+			        Inventario_CurCarazo,
+			        Inventario_CurCarazo[Es Serie Duplicada] <> "OK"
+			            && NOT( ISBLANK( Inventario_CurCarazo[Es Serie Duplicada] ) )
+			    )
+			)
+		formatString: 0
+		lineageTag: 2977f84e-d15f-4a92-8d32-b1bef20535d9
+
+	measure 'Top Modelo por Dispositivo' =
+			
+			CALCULATE(
+			    SELECTEDVALUE( Inventario_CurCarazo[Modelo] ),
+			    TOPN(
+			        1,
+			        SUMMARIZE(
+			            FILTER(
+			                Inventario_CurCarazo,
+			                Inventario_CurCarazo[Dispositivo] = SELECTEDVALUE( Inventario_CurCarazo[Dispositivo] )
+			                    && UPPER( TRIM( Inventario_CurCarazo[Modelo] ) ) <> "PENDIENTE"
+			            ),
+			            Inventario_CurCarazo[Modelo],
+			            "n", COUNTROWS( Inventario_CurCarazo )
+			        ),
+			        [n], DESC
+			    )
+			)
+		lineageTag: 29ee8123-fca0-4093-b8c4-b3c5277f6ceb
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: e873c01a-5ccd-4da6-86d9-62f9eecdc8fb
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Titulo CURCarazo'
+		dataType: string
+		lineageTag: 8c080bb2-e58a-4718-b899-07be402332aa
+		summarizeBy: none
+		sourceColumn: Titulo CURCarazo
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nombre del equipo'
+		dataType: string
+		lineageTag: 0b7a1613-14c4-4382-b086-6fb87e1a44bc
+		summarizeBy: none
+		sourceColumn: Nombre del equipo
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Estado
+		dataType: string
+		lineageTag: 1f5d2ff5-f944-416c-a037-35df5efa1d26
+		summarizeBy: none
+		sourceColumn: Estado
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ubicación
+		dataType: string
+		lineageTag: 0b14c002-4104-4168-8e3f-ea13bc5338b3
+		summarizeBy: none
+		sourceColumn: Ubicación
+
+		annotation SummarizationSetBy = Automatic
+
+	column Aréa
+		dataType: string
+		lineageTag: 7f3a8393-9d63-412b-a5e1-a8e82be4d5df
+		summarizeBy: none
+		sourceColumn: Aréa
+
+		annotation SummarizationSetBy = Automatic
+
+	column IP
+		dataType: string
+		lineageTag: cd31a9f9-6f01-4366-9aad-d99d008a72ca
+		summarizeBy: none
+		sourceColumn: IP
+
+		annotation SummarizationSetBy = Automatic
+
+	column MAC
+		dataType: string
+		lineageTag: f9964c48-1246-4a67-8892-7621186efd04
+		summarizeBy: none
+		sourceColumn: MAC
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dispositivo
+		dataType: string
+		lineageTag: 22bee7e9-01ed-4b09-abaa-218f5d5b02f8
+		summarizeBy: none
+		sourceColumn: Dispositivo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Marca
+		dataType: string
+		lineageTag: 895401fd-41fe-47b8-8a9b-be3b8f6fd977
+		summarizeBy: none
+		sourceColumn: Marca
+
+		annotation SummarizationSetBy = Automatic
+
+	column Procesador
+		dataType: string
+		lineageTag: 725dff30-6761-409e-9441-2f8747957f41
+		summarizeBy: none
+		sourceColumn: Procesador
+
+		annotation SummarizationSetBy = Automatic
+
+	column Gen_Procesador
+		dataType: string
+		lineageTag: cd1324fe-82b3-446b-97cf-f65ad7259c8a
+		summarizeBy: none
+		sourceColumn: Gen_Procesador
+
+		annotation SummarizationSetBy = Automatic
+
+	column RAM
+		dataType: string
+		lineageTag: 50895853-953f-4141-a590-36f6edbb95a5
+		summarizeBy: none
+		sourceColumn: RAM
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sistema Operativo'
+		dataType: string
+		lineageTag: dbe6bcf2-38dd-46d2-ab66-237b9e9b753a
+		summarizeBy: none
+		sourceColumn: Sistema Operativo
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Edición del S.O'
+		dataType: string
+		lineageTag: bfaec7fa-918b-459a-b9ee-41a7f456d354
+		summarizeBy: none
+		sourceColumn: Edición del S.O
+
+		annotation SummarizationSetBy = Automatic
+
+	column Office
+		dataType: string
+		lineageTag: dd30db3b-21c5-47b2-aad7-94e62c6ef39d
+		summarizeBy: none
+		sourceColumn: Office
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Edición de Office'
+		dataType: string
+		lineageTag: a897a13e-aa5a-4660-bca9-0ab554dec75f
+		summarizeBy: none
+		sourceColumn: Edición de Office
+
+		annotation SummarizationSetBy = Automatic
+
+	column Inventario
+		dataType: string
+		lineageTag: d3b180c0-e96f-4616-8262-6b1209a90c6f
+		summarizeBy: none
+		sourceColumn: Inventario
+
+		annotation SummarizationSetBy = Automatic
+
+	column Title
+		dataType: string
+		lineageTag: 1692b145-2b5a-45a8-b21b-fe7e1c712df2
+		summarizeBy: none
+		sourceColumn: Title
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Color Tag'
+		dataType: string
+		lineageTag: c8cd6d00-75f6-415f-9dba-9cf13d32a3f3
+		summarizeBy: none
+		sourceColumn: Color Tag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Compliance Asset Id'
+		dataType: string
+		lineageTag: 2eb3d393-45e0-4ebb-a7bb-ad22de985310
+		summarizeBy: none
+		sourceColumn: Compliance Asset Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Content Type'
+		dataType: string
+		lineageTag: b8aaa7e8-138d-4369-812a-b3d53fcba9e5
+		summarizeBy: none
+		sourceColumn: Content Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Modified
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 8b724961-6edb-4ed4-a5f4-c658f434aed1
+		summarizeBy: none
+		sourceColumn: Modified
+
+		variation Variación
+			isDefault
+			relationship: 0c198c82-b351-4440-8599-601643561d61
+			defaultHierarchy: LocalDateTable_ea8e090f-58ae-46f6-9d9b-2ee1c0f96ecf.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Created
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 4a65208c-96cf-4cb5-83e5-35df6454ea7d
+		summarizeBy: none
+		sourceColumn: Created
+
+		variation Variación
+			isDefault
+			relationship: 87d15039-bc1d-49a6-829a-8dd7c0ee34c2
+			defaultHierarchy: LocalDateTable_6fca389a-3305-4273-a293-2f088ba658d1.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Created By'
+		dataType: string
+		lineageTag: dd89c457-bfc5-4ce1-bc68-ade4c2f44d6d
+		summarizeBy: none
+		sourceColumn: Created By
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Modified By'
+		dataType: string
+		lineageTag: a0f385d2-a44f-4db9-8811-214738c549ad
+		summarizeBy: none
+		sourceColumn: Modified By
+
+		annotation SummarizationSetBy = Automatic
+
+	column Version
+		dataType: string
+		lineageTag: 053c5af5-2e20-40b9-990d-452e66dcce69
+		summarizeBy: none
+		sourceColumn: Version
+
+		annotation SummarizationSetBy = Automatic
+
+	column Attachments
+		dataType: string
+		lineageTag: 5816aeea-a21c-4096-8349-222e6f601900
+		summarizeBy: none
+		sourceColumn: Attachments
+
+		annotation SummarizationSetBy = Automatic
+
+	column Edit
+		dataType: string
+		lineageTag: dfeb0254-5c70-4a8a-a5a5-5abf75774909
+		summarizeBy: none
+		sourceColumn: Edit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Type
+		dataType: string
+		lineageTag: bfe1a883-5942-4f98-9222-8597b1a72e94
+		summarizeBy: none
+		sourceColumn: Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Child Count'
+		dataType: string
+		lineageTag: 4471d284-37f6-4595-90d6-892d9871f5fb
+		summarizeBy: none
+		sourceColumn: Item Child Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Folder Child Count'
+		dataType: string
+		lineageTag: d20914f1-56cc-4236-af12-420bb7b10d4e
+		summarizeBy: none
+		sourceColumn: Folder Child Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Label setting'
+		dataType: string
+		lineageTag: 0343b3d5-89c2-43c4-851f-4d9b1272efbc
+		summarizeBy: none
+		sourceColumn: Label setting
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Retention label'
+		dataType: string
+		lineageTag: 414350e4-9ad6-415a-bb2a-04f736990450
+		summarizeBy: none
+		sourceColumn: Retention label
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Retention label Applied'
+		dataType: string
+		lineageTag: 0bef06e3-ebbe-426f-a890-b973dd4ac018
+		summarizeBy: none
+		sourceColumn: Retention label Applied
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Label applied by'
+		dataType: string
+		lineageTag: abe71023-d521-4bb6-a25c-c8d140a45d2f
+		summarizeBy: none
+		sourceColumn: Label applied by
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item is a Record'
+		dataType: string
+		lineageTag: 03023d57-6f9b-4ea5-afed-71034681cb35
+		summarizeBy: none
+		sourceColumn: Item is a Record
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'App Created By'
+		dataType: string
+		lineageTag: 72fa0d80-5e4a-4205-8eca-ac378cdfd68a
+		summarizeBy: none
+		sourceColumn: App Created By
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'App Modified By'
+		dataType: string
+		lineageTag: 581be2d7-1f2f-4f50-a7e6-cf38bb7a4025
+		summarizeBy: none
+		sourceColumn: App Modified By
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'title.1'
+		dataType: string
+		lineageTag: 33c6e6d7-b056-4cd9-85e7-0b9eb00bb91b
+		summarizeBy: none
+		sourceColumn: title.1
+
+		annotation SummarizationSetBy = Automatic
+
+	column email
+		dataType: string
+		lineageTag: 81370dc5-412c-4e95-a9f6-e5f1318ed1c9
+		summarizeBy: none
+		sourceColumn: email
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Categoria Obsolescencia' =
+			
+			IF(
+			    Inventario_CurCarazo[Dispositivo] IN { "Desktop", "Laptop" },
+			    SWITCH(
+			        TRUE(),
+			        Inventario_CurCarazo[Gen_Procesador] IN {
+			            "Gen_1","Gen_2","Gen_3","Gen_4"
+			        }, "Obsoleto",
+			        Inventario_CurCarazo[Gen_Procesador] IN {
+			            "Gen_5","Gen_6","Gen_7","Gen_8","Gen_9"
+			        }, "Vigilancia",
+			        Inventario_CurCarazo[Gen_Procesador] IN {
+			            "Gen_10","Gen_11","Gen_12",
+			            "Gen_13","Gen_14"
+			        }, "Vigente",
+			        Inventario_CurCarazo[Gen_Procesador] = "Pendiente", "Pendiente",
+			        "Pendiente"
+			    ),
+			    "N/A"
+			)
+		lineageTag: f0347352-bd52-4822-893e-bd0dbf778c1e
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Categoria RAM' =
+			
+			SWITCH(
+			    TRUE(),
+			    Inventario_CurCarazo[RAM] = "Pendiente",  "Pendiente",
+			    Inventario_CurCarazo[RAM] = "4 GB RAM",   "4 GB RAM",
+			    Inventario_CurCarazo[RAM] = "8 GB RAM",   "8 GB RAM",
+			    Inventario_CurCarazo[RAM] = "12 GB RAM",  "12 GB RAM",
+			    Inventario_CurCarazo[RAM] = "16 GB RAM",  "16 GB RAM",
+			    Inventario_CurCarazo[RAM] = "24 GB RAM",  "24 GB RAM",
+			    Inventario_CurCarazo[RAM] = "32 GB RAM",  "32 GB RAM",
+			    "Pendiente"
+			)
+		lineageTag: 7643c974-71b8-482f-aedd-0234a51799b3
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Estado Datos' =
+			
+			IF(
+			    Inventario_CurCarazo[email] = "Pendiente"
+			        || ISBLANK(Inventario_CurCarazo[Nombre del equipo])
+			        || ISBLANK(Inventario_CurCarazo[Estado])
+			        || Inventario_CurCarazo[Ubicación] = "Pendiente"
+			        || ISBLANK(Inventario_CurCarazo[Ubicación])
+			        || ISBLANK(Inventario_CurCarazo[Aréa])
+			        || Inventario_CurCarazo[IP] = "Pendiente"
+			        || ISBLANK(Inventario_CurCarazo[IP])
+			        || Inventario_CurCarazo[MAC] = "Pendiente"
+			        || ISBLANK(Inventario_CurCarazo[MAC])
+			        || Inventario_CurCarazo[Dispositivo] = "Pendiente"
+			        || ISBLANK(Inventario_CurCarazo[Dispositivo])
+			        || Inventario_CurCarazo[Marca] = "Pendiente"
+			        || ISBLANK(Inventario_CurCarazo[Marca])
+			        || Inventario_CurCarazo[Procesador] = "Pendiente"
+			        || ISBLANK(Inventario_CurCarazo[Procesador])
+			        || Inventario_CurCarazo[Gen_Procesador] = "Pendiente"
+			        || ISBLANK(Inventario_CurCarazo[Gen_Procesador])
+			        || Inventario_CurCarazo[RAM] = "Pendiente"
+			        || ISBLANK(Inventario_CurCarazo[RAM])
+			        || Inventario_CurCarazo[Sistema Operativo] = "Pendiente"
+			        || ISBLANK(Inventario_CurCarazo[Sistema Operativo])
+			        || Inventario_CurCarazo[Office] = "Pendiente"
+			        || ISBLANK(Inventario_CurCarazo[Office])
+			        || Inventario_CurCarazo[Modelo] = "Pendiente"
+			        || ISBLANK(Inventario_CurCarazo[Modelo])
+			        || Inventario_CurCarazo[Serie] = "Pendiente"
+			        || ISBLANK(Inventario_CurCarazo[Serie]),
+			    "Pendiente",
+			    "Completo"
+			)
+		lineageTag: b5627abd-90f0-42a2-8082-e1b281cec96e
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ubicación_Maps
+		dataType: string
+		lineageTag: 6f0cfdc8-f555-41a6-8ad0-ffff3eedb411
+		summarizeBy: none
+		sourceColumn: Ubicación_Maps
+
+		annotation SummarizationSetBy = Automatic
+
+	column Probando
+		dataType: string
+		lineageTag: 9c398587-95e9-4c3b-add6-34cb31c3f01f
+		summarizeBy: none
+		sourceColumn: Probando
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Inventario Duplicado' =
+			
+			VAR ValorInventario = Inventario_CurCarazo[Inventario]
+			VAR ValorSerie = Inventario_CurCarazo[Serie]
+			
+			VAR ConteoInventario =
+			    CALCULATE(
+			        COUNTROWS( Inventario_CurCarazo ),
+			        ALL( Inventario_CurCarazo ),
+			        Inventario_CurCarazo[Inventario] = ValorInventario
+			    )
+			
+			VAR ConteoSerie =
+			    CALCULATE(
+			        COUNTROWS( Inventario_CurCarazo ),
+			        ALL( Inventario_CurCarazo ),
+			        Inventario_CurCarazo[Serie] = ValorSerie
+			    )
+			
+			VAR InventarioDuplicado =
+			    ConteoInventario > 1
+			        && NOT( ISBLANK( ValorInventario ) )
+			        && UPPER( TRIM( ValorInventario ) ) <> "PENDIENTE"
+			        && UPPER( TRIM( ValorInventario ) ) <> "S/E"
+			
+			VAR SerieDuplicada =
+			    ConteoSerie > 1
+			        && NOT( ISBLANK( ValorSerie ) )
+			        && UPPER( TRIM( ValorSerie ) ) <> "PENDIENTE"
+			        && UPPER( TRIM( ValorSerie ) ) <> "S/E"
+			        && UPPER( TRIM( ValorSerie ) ) <> ""
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    InventarioDuplicado && SerieDuplicada,
+			        "Inventario y Serie duplicados (" & ConteoInventario & " veces)",
+			    InventarioDuplicado,
+			        "Inventario duplicado (" & ConteoInventario & " veces)",
+			    SerieDuplicada,
+			        "Serie duplicada (" & ConteoSerie & " veces)",
+			    "OK"
+			)
+		lineageTag: bdf9e043-4ac4-4ed7-b481-ed8cbf649de0
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Conteo Inventario' =
+			
+			VAR ValorActual = Inventario_CurCarazo[Inventario]
+			RETURN
+			IF(
+			    ISBLANK( ValorActual )
+			        || UPPER( TRIM( ValorActual ) ) = "PENDIENTE"
+			        || UPPER( TRIM( ValorActual ) ) = "S/E",
+			    BLANK(),
+			    CALCULATE(
+			        COUNTROWS( Inventario_CurCarazo ),
+			        ALL( Inventario_CurCarazo ),
+			        Inventario_CurCarazo[Inventario] = ValorActual
+			    )
+			)
+		formatString: 0
+		lineageTag: db379da5-dec2-41f8-9274-57d79260d20a
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Modelo
+		dataType: string
+		lineageTag: 8396e434-78f9-4514-bf46-c90d3d355096
+		summarizeBy: none
+		sourceColumn: Modelo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Serie
+		dataType: string
+		lineageTag: 4d8c317b-c3c3-4bec-9663-eb4c3a97c128
+		summarizeBy: none
+		sourceColumn: Serie
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Es Serie Duplicada' =
+			
+			VAR ValorActual = Inventario_CurCarazo[Serie]
+			VAR Conteo =
+			    CALCULATE(
+			        COUNTROWS( Inventario_CurCarazo ),
+			        ALL( Inventario_CurCarazo ),
+			        Inventario_CurCarazo[Serie] = ValorActual
+			    )
+			RETURN
+			IF(
+			    Conteo > 1
+			        && NOT( ISBLANK( ValorActual ) )
+			        && UPPER( TRIM( ValorActual ) ) <> "PENDIENTE",
+			    "Duplicado (" & Conteo & " veces)",
+			    "OK"
+			)
+		lineageTag: 184d95ce-caa5-41a3-8f23-cf1bbebab4d4
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Inventario_CurCarazo = m
+		mode: import
+		source =
+				let
+				    Origen = SharePoint.Tables("https://unanmanagua.sharepoint.com/sites/TICFAREMCARAZO2", [Implementation="2.0", ViewMode="All"]),
+				    #"69e43e95-aaae-4b97-b4db-37654d185b3e" = Origen{[Id="69e43e95-aaae-4b97-b4db-37654d185b3e"]}[Items],
+				    #"Se expandió Nombre de usuario" = Table.ExpandListColumn(#"69e43e95-aaae-4b97-b4db-37654d185b3e", "Nombre de usuario"),
+				    #"Se expandió Nombre de usuario1" = Table.ExpandRecordColumn(#"Se expandió Nombre de usuario", "Nombre de usuario", {"title", "email"}, {"title.1", "email"})
+				in
+				    #"Se expandió Nombre de usuario1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

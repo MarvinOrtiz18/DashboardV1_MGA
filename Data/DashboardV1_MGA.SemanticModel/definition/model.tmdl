@@ -1,0 +1,22 @@
+model Model
+	culture: es-NI
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: es-NI
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["Inventario_CurCarazo","Edificios"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table Inventario_CurCarazo
+ref table DateTableTemplate_e7ab5694-90d0-421c-90c2-e02114ddd909
+ref table LocalDateTable_ea8e090f-58ae-46f6-9d9b-2ee1c0f96ecf
+ref table LocalDateTable_6fca389a-3305-4273-a293-2f088ba658d1
+ref table Edificios
+
+ref cultureInfo es-NI
+
