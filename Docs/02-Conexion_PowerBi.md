@@ -137,7 +137,7 @@ Si el valor original es:
 juan.perez@unan.edu.ni
 ```
 
-El resultado puede ser:
+El resultado debe ser:
 | Nombre de usuario técnico | Nombre del usuario | Correo |
 |---|---|---|
 | juan.perez | Juan Perez | juan.perez@unan.edu.ni |

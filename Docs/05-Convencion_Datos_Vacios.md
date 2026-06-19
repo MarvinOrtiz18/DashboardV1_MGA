@@ -2,9 +2,9 @@
 ## Inventario TI | CUR Carazo — UNAN Managua
 
 > **Proyecto:** DashboardV1_MGA  
-> **Aplica a:** SharePoint List (origen) + Power BI / Power Query (presentación)  
-> **Versión:** 1.0  
-> **Última actualización:** Abril 2026
+> **Aplica a:** SharePoint List + Power BI / Power Query
+> **Versión:** 1.2
+> **Última actualización:** Junio 2026
 
 ---
 
