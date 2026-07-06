@@ -1,68 +1,10 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
   "name": "9de04479c9c704813796",
-  "displayName": "AreaPage",
-  "displayOption": "FitToPage",
-  "height": 1100,
-  "width": 1280,
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "bc1435605a130148811a",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Inventario_CurCarazo"
-              }
-            },
-            "Property": "Aréa"
-          }
-        },
-        "type": "Categorical",
-        "filter": {
-          "Version": 2,
-          "From": [
-            {
-              "Name": "i",
-              "Entity": "Inventario_CurCarazo",
-              "Type": 0
-            }
-          ],
-          "Where": [
-            {
-              "Condition": {
-                "In": {
-                  "Expressions": [
-                    {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Source": "i"
-                          }
-                        },
-                        "Property": "Aréa"
-                      }
-                    }
-                  ],
-                  "Values": [
-                    [
-                      {
-                        "Literal": {
-                          "Value": "'Redes'"
-                        }
-                      }
-                    ]
-                  ]
-                }
-              }
-            }
-          ]
-        },
-        "howCreated": "User"
-      }
-    ]
-  },
+  "displayName": "Análisis por Ubicación",
+  "displayOption": "ActualSize",
+  "height": 1480,
+  "width": 1600,
   "objects": {
     "displayArea": [
       {

@@ -1,10 +1,10 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
   "name": "571ff49d67d929623141",
-  "displayName": "Maps_Page",
+  "displayName": "Análisis por Ubicación_Mapa",
   "displayOption": "FitToPage",
-  "height": 1100,
-  "width": 1280,
+  "height": 1480,
+  "width": 1600,
   "objects": {
     "background": [
       {

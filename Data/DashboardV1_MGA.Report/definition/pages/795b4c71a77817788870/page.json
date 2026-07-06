@@ -1,10 +1,10 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
   "name": "795b4c71a77817788870",
-  "displayName": "HomePage",
-  "displayOption": "FitToPage",
-  "height": 1100,
-  "width": 1280,
+  "displayName": "Página Principal",
+  "displayOption": "ActualSize",
+  "height": 1480,
+  "width": 1600,
   "objects": {
     "displayArea": [
       {

@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
   "name": "d1941577a59af62eb131",
   "position": {
-    "x": 313.33333333333337,
-    "y": 175,
-    "z": 5000,
+    "x": 763.33333333333337,
+    "y": 226.66666666666669,
+    "z": 3000,
     "height": 83.333333333333343,
-    "width": 460,
-    "tabOrder": 5000
+    "width": 386.66666666666669,
+    "tabOrder": 3000
   },
   "visual": {
     "visualType": "slicer",
@@ -112,49 +112,7 @@
       ],
       "general": [
         {
-          "properties": {
-            "filter": {
-              "filter": {
-                "Version": 2,
-                "From": [
-                  {
-                    "Name": "i",
-                    "Entity": "Inventario_CurCarazo",
-                    "Type": 0
-                  }
-                ],
-                "Where": [
-                  {
-                    "Condition": {
-                      "In": {
-                        "Expressions": [
-                          {
-                            "Column": {
-                              "Expression": {
-                                "SourceRef": {
-                                  "Source": "i"
-                                }
-                              },
-                              "Property": "Inventario Duplicado"
-                            }
-                          }
-                        ],
-                        "Values": [
-                          [
-                            {
-                              "Literal": {
-                                "Value": "'Serie duplicada (2 veces)'"
-                              }
-                            }
-                          ]
-                        ]
-                      }
-                    }
-                  }
-                ]
-              }
-            }
-          }
+          "properties": {}
         }
       ]
     },
@@ -238,7 +196,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#3B1F6E'"
+                      "Value": "'#153455'"
                     }
                   }
                 }

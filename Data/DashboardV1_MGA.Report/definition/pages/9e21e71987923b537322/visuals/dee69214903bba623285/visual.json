@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
   "name": "dee69214903bba623285",
   "position": {
-    "x": 60,
-    "y": 446.66666666666669,
+    "x": 343.33333333333337,
+    "y": 493.33333333333337,
     "z": 4000,
-    "height": 298.33333333333337,
-    "width": 558.33333333333337,
+    "height": 460,
+    "width": 560,
     "tabOrder": 4000
   },
   "visual": {
@@ -417,5 +417,40 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "58386b29104cb20ca9da",
+        "ordinal": 0,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Inventario_CurCarazo"
+              }
+            },
+            "Property": "Sistema Operativo"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "cac8a62b6499acbe5e40",
+        "ordinal": 1,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Inventario_CurCarazo"
+              }
+            },
+            "Property": "Total Equipos"
+          }
+        },
+        "type": "Advanced"
+      }
+    ],
+    "filterSortOrder": "Custom"
   }
 }

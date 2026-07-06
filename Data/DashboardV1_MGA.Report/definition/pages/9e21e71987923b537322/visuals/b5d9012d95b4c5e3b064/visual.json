@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
   "name": "b5d9012d95b4c5e3b064",
   "position": {
-    "x": 60,
-    "y": 771.66666666666674,
+    "x": 343.33333333333337,
+    "y": 993.33333333333337,
     "z": 6000,
-    "height": 291.66666666666669,
-    "width": 558.33333333333337,
+    "height": 460,
+    "width": 560,
     "tabOrder": 6000
   },
   "visual": {
@@ -316,5 +316,70 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "9633d38d5a6542d98105",
+        "ordinal": 0,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Inventario_CurCarazo"
+              }
+            },
+            "Property": "SW Office2016"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "5f619c5410e8ca3768b6",
+        "ordinal": 1,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Inventario_CurCarazo"
+              }
+            },
+            "Property": "SW Office2019"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "e0f8ec7c48e64210ab49",
+        "ordinal": 2,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Inventario_CurCarazo"
+              }
+            },
+            "Property": "SW Office2021"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "44be9b1229b8120eabb8",
+        "ordinal": 3,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Inventario_CurCarazo"
+              }
+            },
+            "Property": "SW Office365"
+          }
+        },
+        "type": "Advanced"
+      }
+    ],
+    "filterSortOrder": "Custom"
   }
 }

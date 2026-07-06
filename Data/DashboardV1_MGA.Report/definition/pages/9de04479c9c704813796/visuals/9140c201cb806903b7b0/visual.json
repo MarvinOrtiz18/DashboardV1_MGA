@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
   "name": "9140c201cb806903b7b0",
   "position": {
-    "x": 587.5,
-    "y": 175,
-    "z": 9000,
-    "height": 83.75,
-    "width": 261.25,
-    "tabOrder": 9000
+    "x": 903.33333333333337,
+    "y": 210,
+    "z": 7000,
+    "height": 83.333333333333343,
+    "width": 263.33333333333337,
+    "tabOrder": 7000
   },
   "visual": {
     "visualType": "slicer",
@@ -123,7 +123,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Ubicación'"
+                  "Value": "'Área'"
                 }
               }
             },
@@ -242,7 +242,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#3B1F6E'"
+                      "Value": "'#153455'"
                     }
                   }
                 }

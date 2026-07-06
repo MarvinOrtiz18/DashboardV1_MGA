@@ -53,5 +53,6 @@
       }
     ]
   },
+  "visibility": "HiddenInViewMode",
   "type": "Tooltip"
 }

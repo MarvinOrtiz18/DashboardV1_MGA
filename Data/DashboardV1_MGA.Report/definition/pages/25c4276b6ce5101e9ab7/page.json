@@ -1,10 +1,75 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
   "name": "25c4276b6ce5101e9ab7",
-  "displayName": "QA_DataPage",
-  "displayOption": "FitToPage",
-  "height": 1100,
-  "width": 1280,
+  "displayName": "Análisis por Procesadores Laptop-Desktop",
+  "displayOption": "ActualSize",
+  "height": 1480,
+  "width": 1600,
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "95fdec122234d7b07e7d",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Inventario_CurCarazo"
+              }
+            },
+            "Property": "Dispositivo"
+          }
+        },
+        "type": "Categorical",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "i",
+              "Entity": "Inventario_CurCarazo",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "i"
+                          }
+                        },
+                        "Property": "Dispositivo"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Desktop'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Laptop'"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User"
+      }
+    ]
+  },
   "objects": {
     "displayArea": [
       {

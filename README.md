@@ -14,18 +14,52 @@ Dashboard Inventario TI
 
 </div>
 
-## Estructura del repositorio
+## Estructura actual del repositorio
 
 ```
-Dashboardv1_mga/
+DashboardV1_MGA/
 │
-├── docs/                          # Guías teóricas
-│   ├── 01-List_Dataset.md        # Estructura del DataSet
-│   ├── 02-Conexion_PowerBi.md    # Agregar DataSet como Origen de datos a PowerBI
-│   ├── 03-Controles_Agregados.md # Añadir de la tienda controles HTML & Search TextBox
-│   └── 04-Add_UbicacionesTable.md # Agregar Tabla de Ubicaciones y Relación
-└── .github/
-    └── SETUP.md                   # Prerrequisitos e instalación
+├── Data/
+│   ├── DashboardV1_MGA.pbip
+│   ├── DashboardV1_MGA.Report/
+│   │   ├── definition.pbir
+│   │   ├── .pbi/
+│   │   │   └── localSettings.json
+│   │   ├── definition/
+│   │   │   ├── report.json
+│   │   │   ├── version.json
+│   │   │   └── pages/
+│   │   │       ├── pages.json
+│   │   │       └── .../page.json + visuals/
+│   │   └── StaticResources/
+│   │       ├── RegisteredResources/
+│   │       └── SharedResources/
+│   └── DashboardV1_MGA.SemanticModel/
+│       ├── definition.pbism
+│       ├── diagramLayout.json
+│       └── definition/
+│           ├── database.tmdl
+│           ├── model.tmdl
+│           ├── relationships.tmdl
+│           ├── cultures/
+│           │   └── es-NI.tmdl
+│           └── tables/
+│               ├── DateTableTemplate_*.tmdl
+│               ├── Edificios.tmdl
+│               ├── Inventario_CurCarazo.tmdl
+│               └── LocalDateTable_*.tmdl
+├── Docs/
+│   ├── 01-List_Dataset.md
+│   ├── 02-Conexion_PowerBi.md
+│   ├── 03-Controles_Agregados.md
+│   ├── 04-Add_UbicacionesTable.md
+│   └── 05-Convencion_Datos_Vacios.md
+├── Report/
+│   └── DashboardV1_MGA.pbix
+└── theme/
+    ├── CurCarazo_Theme.json
+    ├── CurCarazo_Theme_UNAN.json
+    └── assets/
 ```
 
 ---

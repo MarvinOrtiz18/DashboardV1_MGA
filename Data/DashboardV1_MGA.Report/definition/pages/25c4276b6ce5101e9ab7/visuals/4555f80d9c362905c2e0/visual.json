@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
   "name": "4555f80d9c362905c2e0",
   "position": {
-    "x": 25,
-    "y": 280,
+    "x": 303.33333333333337,
+    "y": 433.33333333333337,
     "z": 0,
     "height": 223.33333333333334,
-    "width": 463.33333333333337,
+    "width": 653.33333333333337,
     "tabOrder": 0
   },
   "visual": {
@@ -408,7 +408,8 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "d97b098c39b0da8329ed",
+        "name": "c1ecde20d280770a2102",
+        "ordinal": 0,
         "field": {
           "Column": {
             "Expression": {
@@ -416,58 +417,27 @@
                 "Entity": "Inventario_CurCarazo"
               }
             },
-            "Property": "Dispositivo"
+            "Property": "Categoria Obsolescencia"
           }
         },
-        "type": "Categorical",
-        "filter": {
-          "Version": 2,
-          "From": [
-            {
-              "Name": "i",
-              "Entity": "Inventario_CurCarazo",
-              "Type": 0
-            }
-          ],
-          "Where": [
-            {
-              "Condition": {
-                "In": {
-                  "Expressions": [
-                    {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Source": "i"
-                          }
-                        },
-                        "Property": "Dispositivo"
-                      }
-                    }
-                  ],
-                  "Values": [
-                    [
-                      {
-                        "Literal": {
-                          "Value": "'Desktop'"
-                        }
-                      }
-                    ],
-                    [
-                      {
-                        "Literal": {
-                          "Value": "'Laptop'"
-                        }
-                      }
-                    ]
-                  ]
-                }
+        "type": "Categorical"
+      },
+      {
+        "name": "de0fc2635ed06b3c5394",
+        "ordinal": 1,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Inventario_CurCarazo"
               }
-            }
-          ]
+            },
+            "Property": "Total Equipos"
+          }
         },
-        "howCreated": "User"
+        "type": "Advanced"
       }
-    ]
+    ],
+    "filterSortOrder": "Custom"
   }
 }

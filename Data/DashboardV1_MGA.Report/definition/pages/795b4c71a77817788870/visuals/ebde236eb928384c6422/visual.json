@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
   "name": "ebde236eb928384c6422",
   "position": {
-    "x": 18.18181818181818,
-    "y": 453.63636363636363,
+    "x": 303.33333333333337,
+    "y": 490,
     "z": 3000,
-    "height": 268.18181818181819,
-    "width": 429.09090909090907,
+    "height": 296.66666666666669,
+    "width": 623.33333333333337,
     "tabOrder": 3000
   },
   "visual": {
@@ -23,11 +23,11 @@
                       "Entity": "Inventario_CurCarazo"
                     }
                   },
-                  "Property": "Aréa"
+                  "Property": "Modelo"
                 }
               },
-              "queryRef": "Inventario_CurCarazo.Aréa",
-              "nativeQueryRef": "Aréa",
+              "queryRef": "Inventario_CurCarazo.Modelo",
+              "nativeQueryRef": "Modelo",
               "active": true
             }
           ]
@@ -42,11 +42,11 @@
                       "Entity": "Inventario_CurCarazo"
                     }
                   },
-                  "Property": "Equipos por Area"
+                  "Property": "Total Equipos"
                 }
               },
-              "queryRef": "Inventario_CurCarazo.Equipos por Area",
-              "nativeQueryRef": "Equipos por Area"
+              "queryRef": "Inventario_CurCarazo.Total Equipos",
+              "nativeQueryRef": "Total Equipos"
             }
           ]
         }
@@ -61,7 +61,7 @@
                     "Entity": "Inventario_CurCarazo"
                   }
                 },
-                "Property": "Equipos por Area"
+                "Property": "Total Equipos"
               }
             },
             "direction": "Descending"
